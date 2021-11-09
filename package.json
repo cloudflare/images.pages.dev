@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "@cfpreview/pages-cli": "0.0.4",
     "@tailwindcss/aspect-ratio": "^0.3.0",
     "autoprefixer": "^9.8.8",
     "postcss": "^7.0.39",
