@@ -1,4 +1,4 @@
 {
-  "entryPoint": "./functions",
-  "baseURL": "/api"
+  "entryPoint": "./singleWorker.js",
+  "baseURL": "/"
 }
