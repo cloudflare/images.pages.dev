@@ -1,4 +1,7 @@
 {
-  "entryPoint": "./singleWorker.js",
-  "baseURL": "/"
+  "entryPoint": "./functions",
+  "baseURL": "/api",
+  "miniflare": {
+    "kvNamespaces": ["KV"]
+  }
 }

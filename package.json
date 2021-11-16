@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.4.0",
+    "@ssttevee/multipart-parser": "^0.1.9",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -18,10 +19,12 @@
     "react-scripts": "4.0.3",
     "swr": "^1.0.1",
     "typescript": "^4.4.4",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "wrangler": "^0.0.0-cae7a7f"
   },
   "scripts": {
-    "start": "craco start",
+    "start:react": "craco start",
+    "start": "npx wrangler pages dev --kv IMAGES -- npm run start:react",
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject"
@@ -45,8 +48,9 @@
     ]
   },
   "devDependencies": {
-    "@cfpreview/pages-cli": "0.0.4",
+    "@cloudflare/workers-types": "^3.1.1",
     "@tailwindcss/aspect-ratio": "^0.3.0",
+    "@tailwindcss/forms": "^0.3.4",
     "autoprefixer": "^9.8.8",
     "postcss": "^7.0.39",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
