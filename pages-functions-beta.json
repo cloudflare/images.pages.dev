@@ -1,7 +1,0 @@
-{
-  "entryPoint": "./functions",
-  "baseURL": "/api",
-  "miniflare": {
-    "kvNamespaces": ["KV"]
-  }
-}

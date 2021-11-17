@@ -1,5 +1,6 @@
 import { jsonResponse } from "../utils/jsonResponse";
 import { IMAGE_KEY_PREFIX } from "../utils/constants";
+import { generateSignedURL } from "../utils/generateSignedURL";
 
 export const onRequestGet: PagesFunction<{
   IMAGES: KVNamespace;
@@ -8,6 +9,8 @@ export const onRequestGet: PagesFunction<{
   try {
     const url = new URL(request.url);
     const cursor = url.searchParams.get("cursor") || undefined;
+
+    const { imagesKey } = (await env.IMAGES.get("setup", "json")) as Setup;
 
     const kvImagesList = await env.IMAGES.list<ImageMetadata>({
       prefix: IMAGE_KEY_PREFIX,
@@ -29,18 +32,21 @@ export const onRequestGet: PagesFunction<{
               downloadCounterId,
             } = kvImage.metadata as ImageMetadata;
 
-            const previewURL = `${previewURLBase}${
-              isPrivate ? "blur" : "preview"
-            }`;
+            const previewURL = isPrivate
+              ? `${previewURLBase}/blurred`
+              : generateSignedURL({
+                  url: `${previewURLBase}/preview`,
+                  imagesKey,
+                });
 
-            // TODO: Durable Object
-            // const downloadCounter = env.DOWNLOAD_COUNTER.get(
-            //   env.DOWNLOAD_COUNTER.idFromString(downloadCounterId)
-            // );
-            // // This isn't a real internet request, so the host is irrelevant (https://developers.cloudflare.com/workers/platform/compatibility-dates#durable-object-stubfetch-requires-a-full-url).
-            // const downloadCountResponse = await downloadCounter.fetch("https://images.pages.dev/");
-            // const downloadCount = await downloadCountResponse.json<number>();
-            const downloadCount = 0;
+            const downloadCounter = env.DOWNLOAD_COUNTER.get(
+              env.DOWNLOAD_COUNTER.idFromString(downloadCounterId)
+            );
+            // This isn't a real internet request, so the host is irrelevant (https://developers.cloudflare.com/workers/platform/compatibility-dates#durable-object-stubfetch-requires-a-full-url).
+            const downloadCountResponse = await downloadCounter.fetch(
+              "https://images.pages.dev/"
+            );
+            const downloadCount = await downloadCountResponse.json<number>();
 
             return {
               id,

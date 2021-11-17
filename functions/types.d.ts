@@ -21,6 +21,7 @@ interface ImageMetadata {
 interface Setup {
   apiToken: string;
   accountId: string;
+  imagesKey: string;
 }
 
 /*** Will be in @cloudflare/workers-types shortly ***/

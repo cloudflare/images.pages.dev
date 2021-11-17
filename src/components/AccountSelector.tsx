@@ -1,5 +1,6 @@
 import { FC, useState, useEffect } from "react";
 import { ExternalLink } from "./ExternalLink";
+import { Banner } from "./Banner";
 import createTokenButton from "../assets/create_token_button.png";
 import customToken from "../assets/custom_token.png";
 import tokenConfiguration from "../assets/token_configuration.png";
@@ -17,7 +18,7 @@ export const AccountSelector: FC<{
     (async () => {
       if (apiToken === "") return;
 
-      const response = await fetch(`/api/setup/apiToken`, {
+      const response = await fetch(`/admin/api/setup/apiToken`, {
         method: "POST",
         body: JSON.stringify({ apiToken }),
       });
@@ -31,7 +32,7 @@ export const AccountSelector: FC<{
         setError("");
         setAccountId(data.accountId);
         setAccounts([]);
-      } else if (data.accounts) {
+      } else if (data.accounts && data.accounts.length > 0) {
         setError("");
         setAccountId(data.accounts[0].id);
         setAccounts(data.accounts);
@@ -50,7 +51,7 @@ export const AccountSelector: FC<{
     (async () => {
       if (accountId === "") return;
 
-      const response = await fetch("/api/setup/accountId", {
+      const response = await fetch("/admin/api/setup/accountId", {
         method: "POST",
         body: JSON.stringify({ accountId }),
       });
@@ -148,10 +149,7 @@ export const AccountSelector: FC<{
         </label>
 
         {error ? (
-          <div className="py-4 px-4 bg-red-100 text-red-800 my-4 rounded-md">
-            <p className="font-bold">Error</p>
-            <p className="mt-2">{error}</p>
-          </div>
+          <Banner type="error" title="Error" description={error} />
         ) : undefined}
       </div>
 

@@ -17,5 +17,13 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "functions"]
+  "include": [
+    "src",
+    "functions",
+    "durable_objects",
+    "tmp/setup.ts",
+    "tmp/images.ts",
+    "tmp/api",
+    "tmp/types.d.ts"
+  ]
 }

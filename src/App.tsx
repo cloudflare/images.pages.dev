@@ -19,8 +19,8 @@ const Router: FC = () => {
           path="/"
           element={setup ? <Home /> : <Navigate to="admin/setup" />}
         />
-        <Route path="admin/setup" element={<Setup />} />
-        <Route path="admin" element={<Admin />} />
+        {/* <Route path="admin/setup" element={<Setup />} />
+        <Route path="admin" element={<Admin />} /> */}
       </Routes>
     </BrowserRouter>
   );
