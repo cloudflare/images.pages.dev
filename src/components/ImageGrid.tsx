@@ -50,17 +50,17 @@ const ImageCard: FC<{ image: Image }> = ({
 };
 
 export const ImageGrid: FC = () => {
-  // const { data, error } = useSWR<{ images: Image[] }>("/api/images");
+   const { data, error } = useSWR<{ images: Image[] }>("/api/images");
 
-  // if (error || data === undefined) {
-  //   return (
-  //     <div>
-  //       An unexpected error has occurred when fetching the list of images.
-  //       Please try again.
-  //     </div>
-  //   );
-  // }
-
+   if (error || data === undefined) {
+     return (
+       <div>
+         An unexpected error has occurred when fetching the list of images.
+         Please try again.
+       </div>
+     );
+   }
+/*
   const data = {
     images: [
       {
@@ -135,7 +135,7 @@ export const ImageGrid: FC = () => {
       },
     ],
   };
-
+*/  
   return (
     <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       {data.images.map((image) => (
